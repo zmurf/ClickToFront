@@ -137,6 +137,10 @@ LRESULT CALLBACK FocusControl::tabProcess(int nCode, WPARAM wParam, LPARAM lPara
 	// Ugly hack! I would have wanted to use "SetWinEventHook(EVENT_SYSTEM_SWITCHSTART, EVENT_SYSTEM_SWITCHEND, nullptr, FocusControl::tabEventProcess, 0, 0, WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS);"
 	// but for some reason I can't get that to work on Windows 10. See my qustion on Stack Overflow: https://stackoverflow.com/questions/49588438/the-system-events-event-system-switchstart-and-event-system-switchend-works-in-w/49597746#49597746
 	auto kbdLlHookStruct = (KBDLLHOOKSTRUCT*)lParam;
+	if (nullptr == kbdLlHookStruct)
+	{
+		return CallNextHookEx(sTabHook, nCode, wParam, lParam);
+	}
 
 	switch (nCode)
 	{
