@@ -31,5 +31,7 @@
 *.out
 *.app
 
+*.user
+
 **/x64
 /.vs
